@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 
 @Dao
 interface PurchaseDAO {
@@ -16,4 +17,7 @@ interface PurchaseDAO {
 
     @Delete
     fun delete(purchase: Purchase)
+
+    @Update
+    fun update(purchase: Purchase)
 }
