@@ -37,6 +37,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.example.shoplylist.ui.theme.ShoplyListTheme
@@ -90,9 +91,14 @@ fun BuyListScreen(db: AppDatabase) {
                         editName = edit.name
                     },
                     onSelect = { selected ->
+                        val updatedPurchases = selected.copy(isSelected = !selected.isSelected)
                         purchases = purchases.map {
-                            if (it.id == selected.id) it.copy(isSelected = !it.isSelected)
+                            if (it.id == selected.id) updatedPurchases
                             else it
+                        }
+
+                        scope.launch(Dispatchers.IO) {
+                            db.purchaseDao().update(updatedPurchases)
                         }
 
                     },
@@ -208,7 +214,7 @@ fun PurchaseItem(purchase: Purchase, onEdit: (Purchase)-> Unit, onSelect: (Purch
 
             Text(
                 text=purchase.name,
-                style = MaterialTheme.typography.titleMedium,
+                style = if (purchase.isSelected) MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold) else MaterialTheme.typography.titleMedium,
                 modifier = Modifier.weight(2f).fillMaxHeight(),
                 textDecoration = if (purchase.isSelected) TextDecoration.LineThrough else null
             )
