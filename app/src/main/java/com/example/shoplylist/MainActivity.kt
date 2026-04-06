@@ -52,7 +52,7 @@ class MainActivity : ComponentActivity() {
         db = AppDatabase.getDatabase(this)
         enableEdgeToEdge()
         setContent {
-            ShoplyListTheme {
+            ShoplyListTheme(darkTheme = true) {
                 Surface(modifier = Modifier.fillMaxSize()) {
                     BuyListScreen(db)
                 }
