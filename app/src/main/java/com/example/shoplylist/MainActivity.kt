@@ -214,7 +214,7 @@ fun PurchaseItem(purchase: Purchase, onEdit: (Purchase)-> Unit, onSelect: (Purch
 
             Text(
                 text=purchase.name,
-                style = if (purchase.isSelected) MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold) else MaterialTheme.typography.titleMedium,
+                style = if (purchase.isSelected) MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold) else MaterialTheme.typography.titleLarge,
                 modifier = Modifier.weight(2f).fillMaxHeight(),
                 textDecoration = if (purchase.isSelected) TextDecoration.LineThrough else null
             )
